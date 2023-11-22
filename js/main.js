@@ -41,6 +41,8 @@ console.log("-------------------------------------");
 StampaArray(arrayAutomobiliRestoAlimentazioni);
 console.log("-------------------------------------");
 
+//Passaggio ad DOM
+StampaInDomArray(arrayAutomobiliTotali);
 
 
 
@@ -61,4 +63,38 @@ function StampaArray(array){
         console.log(element);
     });
 }
+
+function StampaInDomArray(array){
+    array.forEach(function(element){
+        document.getElementById("listaAutomobili").innerHTML += `
+        <div class="col-12">
+        <p>Marca:${element.marca},Modello:${element.modello},Alimentazione:${element.alimentazione}</p>
+        </div>
+        `;
+    });
+}
+
+document.getElementById("inserisciNuovaAuto").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    //Prendi input form
+    let newMarcaUtente = document.getElementById("inputMarca").value;
+    let newModelloUtente = document.getElementById("inputModello").value;
+    let newAlimentazioneUtente = document.getElementById("inputAlimentazione").value;
+
+    //Reset per grafica
+    document.getElementById("listaAutomobili").innerHTML = "";
+
+    //Metti nell'array
+    arrayAutomobiliTotali.push(CreaAutomobile(newMarcaUtente,newModelloUtente,newAlimentazioneUtente));
+
+    //Stampa in DOM
+    StampaInDomArray(arrayAutomobiliTotali);
+
+    //Clear set
+    document.getElementById("inserisciNuovaAuto").reset();
+
+});
+
 
